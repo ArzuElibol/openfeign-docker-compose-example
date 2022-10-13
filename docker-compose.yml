@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  presentationservicemaster:
+    image: presentationservicemaster
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8082:8082
+    depends_on:
+      - calculationservicemaster
+    environment:
+      - SPRING_FEIGN_CUSTOMER_CLIENT=http://calculationservicemaster:8081/calculation-service
+       
+  
+  calculationservicemaster:
+    image: calculationservicemaster
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8081:8081
+
+
+
